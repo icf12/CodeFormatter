@@ -5,10 +5,17 @@ import com.sevenbits.formatter.Exceptions.ReaderException;
 import com.sevenbits.formatter.Exceptions.WriterException;
 import com.sevenbits.formatter.Readers.IReader;
 import com.sevenbits.formatter.Writers.IWriter;
-
+/**
+ * Данный класс осуществляет форматирование входящих символов
+ */
 public class Formatter {
     private char previousChar = ' ';
     private int indents = 0;
+    /**
+     * Принимает потоки и отправляет для обработки
+     * @param reader поток для чтения
+     * @param writer поток для записи
+     */
     public void format(IReader reader, IWriter writer) throws FormatterException{
         while (true) {
             try {
@@ -17,14 +24,16 @@ public class Formatter {
                 writer.write(result);
             } catch (ReaderException e) {
                 break;
-            } catch (WriterException e) {
-                throw new FormatterException("Formatted error");
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new FormatterException("formatter error");
             }
         }
     }
-
+    /**
+     * Метод проверяет и обрабатывает входящие символы
+     * @param symbol принимает символ для обработки
+     * @return string возвращает строку для записи
+     */
     public String formatSymbol(char symbol) {
         String result = "";
         switch (symbol) {
